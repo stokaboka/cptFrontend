@@ -1,6 +1,6 @@
 <template>
   <q-page class="flex flex-center">
-    <img alt="Quasar logo" src="~assets/quasar-logo-full.svg">
+    <users-list></users-list>
   </q-page>
 </template>
 
@@ -8,7 +8,9 @@
 </style>
 
 <script>
+import UsersList from '../components/UsersList'
 export default {
-  name: 'PageIndex'
+  name: 'PageIndex',
+  components: { UsersList }
 }
 </script>
