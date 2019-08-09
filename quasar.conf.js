@@ -50,7 +50,8 @@ module.exports = function (ctx) {
         'QItem',
         'QItemSection',
         'QItemLabel',
-        'QSeparator'
+        'QSeparator',
+        'QMarkupTable'
       ],
 
       directives: [
