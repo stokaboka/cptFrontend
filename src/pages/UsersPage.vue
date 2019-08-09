@@ -1,14 +1,14 @@
 <template>
   <q-page padding>
-    <users-list></users-list>
+    <om-data-list module="users"></om-data-list>
   </q-page>
 </template>
 
 <script>
-import UsersList from '../components/UsersList'
+import OmDataList from '../components/OmDataList'
 export default {
   name: 'UsersPage',
-  components: { UsersList }
+  components: { OmDataList }
 }
 </script>
 
