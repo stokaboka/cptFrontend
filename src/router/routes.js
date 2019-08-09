@@ -4,7 +4,16 @@ const routes = [
     path: '/',
     component: () => import('layouts/MyLayout.vue'),
     children: [
-      { path: '', component: () => import('pages/Index.vue') }
+      { path: '', component: () => import('pages/Index.vue') },
+      { path: 'users', name: 'users', component: () => import('pages/UsersPage.vue') },
+      { path: 'pipelines',
+        name: 'pipelines',
+        component: () => import('pages/PipelinesPage.vue'),
+        children: [
+          { path: 'pipeline-tasks', name: 'pipeline-tasks', component: () => import('pages/PipelineTasksPage.vue') }
+        ]
+      },
+      { path: 'tasks', name: 'tasks', component: () => import('pages/TasksPage.vue') }
     ]
   }
 ]

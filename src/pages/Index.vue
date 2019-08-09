@@ -1,6 +1,5 @@
 <template>
   <q-page class="flex flex-center">
-    <users-list></users-list>
   </q-page>
 </template>
 
@@ -8,9 +7,7 @@
 </style>
 
 <script>
-import UsersList from '../components/UsersList'
 export default {
-  name: 'PageIndex',
-  components: { UsersList }
+  name: 'PageIndex'
 }
 </script>
