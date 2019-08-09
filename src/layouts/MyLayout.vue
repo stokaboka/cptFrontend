@@ -97,7 +97,7 @@ export default {
   name: 'MyLayout',
   data () {
     return {
-      leftDrawerOpen: false
+      leftDrawerOpen: this.$q.platform.is.desktop
     }
   },
   methods: {
