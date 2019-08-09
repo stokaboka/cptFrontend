@@ -53,7 +53,7 @@ export default {
     omMode: {
       type: String
     },
-    omRow: {
+    omTemplateRow: {
       type: Object,
       required: true
     }
@@ -79,7 +79,7 @@ export default {
   watch: {
     omDialog (val) {
       this.dialog = val !== 'NONE'
-      this.row = { ...this.omRow }
+      this.row = { ...this.omTemplateRow }
     }
   }
 }

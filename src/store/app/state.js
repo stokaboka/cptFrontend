@@ -5,11 +5,9 @@ export default {
     version: 'api/v1'
   },
 
-  user: null,
   task: null,
   pipe: null,
 
-  users: [],
   tasks: [],
   pipes: []
 }
