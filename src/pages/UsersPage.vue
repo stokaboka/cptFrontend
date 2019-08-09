@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import OmDataList from '../components/OmDataList'
+import OmDataList from '../components/ui/OmDataList'
 export default {
   name: 'UsersPage',
   components: { OmDataList }

@@ -10,9 +10,9 @@ export default {
       mask: '',
       autofocus: true,
       validations: [
-        val => !!val || 'Логин пользователя должно быть заполнено',
-        val => (val && val.length >= 3) || `Логин пользователя не менее 3 символов`,
-        val => (val && val.length < 50) || `Логин пользователя не более 50 символов`
+        val => !!val || 'The login must be filled',
+        val => (val && val.length >= 3) || `User login at least 3 characters`,
+        val => (val && val.length < 50) || `User login no more than 50 characters`
       ],
       icons: [
         {
@@ -28,9 +28,9 @@ export default {
       mask: '',
       autofocus: false,
       validations: [
-        val => !!val || 'Имя пользователя должно быть заполнено',
-        val => (val && val.length >= 3) || `Имя пользователя не менее 3 символов`,
-        val => (val && val.length < 50) || `Имя пользователя не более 50 символов`
+        val => !!val || 'Username must be filled',
+        val => (val && val.length >= 3) || `Username at least 3 characters`,
+        val => (val && val.length < 50) || `Username no more than 50 characters`
       ],
       icons: [
         {

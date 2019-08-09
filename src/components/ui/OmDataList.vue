@@ -37,8 +37,8 @@
 
 <script>
 
-import OmDialogEditor from './ui/OmDialogEditor'
-import OmSimpleList from './ui/OmSimpleList'
+import OmDialogEditor from './OmDialogEditor'
+import OmSimpleList from './OmSimpleList'
 export default {
   name: 'OmDataList',
   components: { OmSimpleList, OmDialogEditor },
