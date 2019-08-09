@@ -7,6 +7,7 @@
           :om-columns="displayColumns"
           :om-rows="rows"
           :om-row="row"
+          :om-aggregate-row="aggregateRow"
           @on-row-selected="onRowClick"
         >
           <template v-slot:empty>
@@ -58,6 +59,7 @@ export default {
   },
   data () {
     return {
+      aggregateRow: null,
       editor: {
         dialog: 'NONE',
         mode: '',
@@ -66,11 +68,11 @@ export default {
     }
   },
   async mounted () {
-    await this.$store.dispatch(`${this.module}/load`, this.omFilter)
+    await this.load(this.omFilter)
   },
   watch: {
     async omFilter (val) {
-      await this.$store.dispatch(`${this.module}/load`, val)
+      await this.load(val)
     }
   },
   computed: {
@@ -112,6 +114,13 @@ export default {
     required () {
       return this.$store.state[this.module].required
     },
+    aggregate () {
+      if (this.$store.state[this.module].aggregate) {
+        return this.$store.state[this.module].aggregate
+      } else {
+        return null
+      }
+    },
     dialog () {
       if (this.$store.state[this.module].dialog) {
         return this.$store.state[this.module].dialog
@@ -135,6 +144,14 @@ export default {
     }
   },
   methods: {
+    async load (filter) {
+      await this.$store.dispatch(`${this.module}/load`, filter)
+      if (this.aggregate) {
+        const rows = await this.$store.dispatch(`${this.module}/aggregate`, filter)
+        this.aggregateRow = (rows !== null && rows.length > 0) ? rows[0] : null
+      }
+    },
+
     async onDialogCommit (row) {
       switch (this.editor.dialog) {
         case 'CREATE' :

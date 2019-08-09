@@ -33,6 +33,21 @@ export default {
         }
       ]
     },
+    // {
+    //   label: 'Run Time',
+    //   name: 'pipeline.runTime',
+    //   type: 'number',
+    //   mask: '',
+    //   edit: false,
+    //   autofocus: false,
+    //   validations: [],
+    //   icons: [
+    //     {
+    //       name: 'fast_forward',
+    //       slot: 'before'
+    //     }
+    //   ]
+    // },
     {
       label: 'Task',
       name: 'task.name',
@@ -55,7 +70,6 @@ export default {
       mask: '',
       edit: false,
       autofocus: false,
-      aggregate: 'sum',
       validations: [],
       icons: [
         {
@@ -97,6 +111,10 @@ export default {
       message: 'No task selected'
     }
   ],
+  aggregate:
+    {
+      url: 'times-sum'
+    },
   dialog: {
     create: false,
     edit: false

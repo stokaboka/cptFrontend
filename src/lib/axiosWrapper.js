@@ -20,7 +20,9 @@ export const get = (options) => {
 
   return axios.get(`/${url}/${paramsList}`)
     .then(response => {
-      commit(mutation, response.data)
+      if (mutation) {
+        commit(mutation, response.data)
+      }
       return response.data
     })
     .catch(error => {
@@ -35,7 +37,9 @@ export const post = (options) => {
 
   return axios.post(`/${url}`, params)
     .then(response => {
-      commit(mutation, response.data)
+      if (mutation) {
+        commit(mutation, response.data)
+      }
       return response.data
     })
     .catch(error => {
@@ -53,7 +57,9 @@ export const put = (options) => {
   return axios.put(`/${url}`, params)
     .then(response => {
       if (response.data.nModified > 0) {
-        commit(mutation, params)
+        if (mutation) {
+          commit(mutation, params)
+        }
       }
       return response.data
     })
@@ -69,7 +75,9 @@ export const remove = (options) => {
 
   return axios.delete(`/${url}`, { data: params })
     .then(response => {
-      commit(mutation, params)
+      if (mutation) {
+        commit(mutation, params)
+      }
       return response.data
     })
     .catch(error => {

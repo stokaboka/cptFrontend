@@ -14,6 +14,22 @@ export const load = ({ state, commit }, params) => {
   })
 }
 
+export const aggregate = ({ state, commit }, params) => {
+  const { keys, url } = state
+  const { url: urlAggregate } = state.aggregate
+  const mutation = null
+  console.log(state.id, params, urlAggregate)
+  return get({
+    store: {
+      commit
+    },
+    params,
+    keys,
+    url: `${url}/${urlAggregate}`,
+    mutation
+  })
+}
+
 export const create = ({ state, commit }, params) => {
   const { url } = state
   const mutation = state.mutations.create

@@ -79,6 +79,10 @@ export default {
       message: 'No user selected'
     }
   ],
+  aggregate:
+    {
+      url: 'average-sum'
+    },
   dialog: {
     create: true,
     edit: true

@@ -20,14 +20,15 @@
               <span v-else>{{row[column.name]}}</span>
             </td>
           </tr>
-          <tr v-if="aggregateRow">
+          <tr v-if="false">
             <td :colspan="omColumns.length" class="bg-yellow-1">
               <strong class="text-left">Total:</strong>
             </td>
           </tr>
-          <tr v-if="aggregateRow">
+          <tr v-if="omAggregateRow">
             <td v-for="column in omColumns" :key="column.key" class="bg-yellow-1" :class="{'text-right': column.type === 'number'}">
-              <strong>{{aggregateRow[column.key]}}</strong>
+              <strong v-if="column.prop">{{omAggregateRow[column.prop]}}</strong>
+              <strong v-else>{{omAggregateRow[column.key]}}</strong>
             </td>
           </tr>
           </tbody>
@@ -40,49 +41,49 @@
 
 <script>
 
-const existAggregateColumns = (columns) => {
-  const idx = columns.findIndex(e => e.aggregate)
-  return idx >= 0
-}
-
-const calculateAggregateValue = (aggregate) => {
-  switch (aggregate.method.toUpperCase()) {
-    case 'SUM' :
-      return aggregate.sum
-    case 'AVERAGE' :
-      return aggregate.count !== 0 ? aggregate.sum / aggregate.count : aggregate.sum
-  }
-}
-
-const calculateAggregateRow = (columns, rows) => {
-  if (!existAggregateColumns(columns)) {
-    return false
-  }
-  const out = {}
-  for (const column of columns) {
-    if (column.aggregate) {
-      const aggregate = {
-        sum: 0,
-        count: 0,
-        method: column.aggregate
-      }
-      for (const row of rows) {
-        if (row[column.name]) {
-          const value = column.prop ? row[column.name][column.prop] : row[column.name]
-          if (value) {
-            aggregate.count++
-            aggregate.sum += value
-          }
-        }
-      }
-
-      out[column.key] = calculateAggregateValue(aggregate)
-    } else {
-      out[column.key] = ''
-    }
-  }
-  return out
-}
+// const existAggregateColumns = (columns) => {
+//   const idx = columns.findIndex(e => e.aggregate)
+//   return idx >= 0
+// }
+//
+// const calculateAggregateValue = (aggregate) => {
+//   switch (aggregate.method.toUpperCase()) {
+//     case 'SUM' :
+//       return aggregate.sum
+//     case 'AVERAGE' :
+//       return aggregate.count !== 0 ? aggregate.sum / aggregate.count : aggregate.sum
+//   }
+// }
+//
+// const calculateAggregateRow = (columns, rows) => {
+//   if (!existAggregateColumns(columns)) {
+//     return false
+//   }
+//   const out = {}
+//   for (const column of columns) {
+//     if (column.aggregate) {
+//       const aggregate = {
+//         sum: 0,
+//         count: 0,
+//         method: column.aggregate
+//       }
+//       for (const row of rows) {
+//         if (row[column.name]) {
+//           const value = column.prop ? row[column.name][column.prop] : row[column.name]
+//           if (value) {
+//             aggregate.count++
+//             aggregate.sum += value
+//           }
+//         }
+//       }
+//
+//       out[column.key] = calculateAggregateValue(aggregate)
+//     } else {
+//       out[column.key] = ''
+//     }
+//   }
+//   return out
+// }
 
 export default {
   name: 'OmSimpleList',
@@ -104,11 +105,15 @@ export default {
     omRow: {
       type: Object,
       required: false
+    },
+    omAggregateRow: {
+      type: Object,
+      required: false
     }
   },
   data () {
     return {
-      aggregateRow: {}
+      // aggregateRow: {}
     }
   },
   computed: {
@@ -123,15 +128,15 @@ export default {
     onRowClick (row) {
       this.$emit('on-row-selected', row)
     }
-  },
-  watch: {
-    omRows (val) {
-      this.aggregateRow = calculateAggregateRow(this.omColumns, val)
-    },
-    omColumns (val) {
-      this.aggregateRow = calculateAggregateRow(this.val, this.omRows)
-    }
   }
+  // watch: {
+  //   omRows (val) {
+  //     this.aggregateRow = calculateAggregateRow(this.omColumns, val)
+  //   },
+  //   omColumns (val) {
+  //     this.aggregateRow = calculateAggregateRow(this.val, this.omRows)
+  //   }
+  // }
 }
 </script>
 

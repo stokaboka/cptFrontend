@@ -38,11 +38,11 @@ export default {
       ]
     },
     {
-      label: 'Pipeline Run Time',
-      name: 'pipelineRunTime',
+      label: 'Run Time',
+      name: 'runTime',
       type: 'number',
       mask: '',
-      aggregate: 'sum',
+      // aggregate: 'sum',
       edit: false,
       autofocus: false,
       validations: [],
@@ -75,6 +75,11 @@ export default {
       message: 'No user selected'
     }
   ],
+  aggregate:
+    {
+      url: 'run-time-sum',
+      column: 'runTime'
+    },
   dialog: {
     create: true,
     edit: true
