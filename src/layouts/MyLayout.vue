@@ -16,6 +16,8 @@
           Pipelined Tasks App
         </q-toolbar-title>
 
+        <div>User: <strong>{{user.name || user.login}}</strong></div>
+
       </q-toolbar>
     </q-header>
 
@@ -43,6 +45,7 @@
 
 <script>
 import { openURL } from 'quasar'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'MyLayout',
@@ -70,6 +73,9 @@ export default {
         }
       ]
     }
+  },
+  computed: {
+    ...mapGetters('users', { user: 'row' })
   },
   methods: {
     openURL
