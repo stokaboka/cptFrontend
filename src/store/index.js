@@ -3,8 +3,6 @@ import Vuex from 'vuex'
 
 import app from './app'
 
-// import example from './module-example'
-
 Vue.use(Vuex)
 
 const store = new Vuex.Store({
