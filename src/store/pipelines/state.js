@@ -21,12 +21,28 @@ export default {
           slot: 'before'
         }
       ]
+    },
+    {
+      label: 'User',
+      name: 'user.name',
+      type: 'text',
+      mask: '',
+      edit: false,
+      autofocus: false,
+      validations: [],
+      icons: [
+        {
+          name: 'play_arrow',
+          slot: 'before'
+        }
+      ]
     }
   ],
   row: {},
   rows: [],
   templateRow: {
     userId: 'users.row._id',
+    user: 'users.row',
     name: ''
   },
   keys: ['userId', 'name'],

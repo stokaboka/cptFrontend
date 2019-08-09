@@ -4,20 +4,61 @@ export default {
   title: 'Pipeline Tasks',
   columns: [
     {
-      label: 'Name',
-      name: 'name',
+      label: 'User',
+      name: 'user.name',
       type: 'text',
       mask: '',
-      edit: true,
+      edit: false,
       autofocus: false,
-      validations: [
-        val => !!val || 'The pipeline name must be filled',
-        val => (val && val.length >= 3) || `Pipeline name at least 3 characters`,
-        val => (val && val.length < 50) || `Pipeline name no more than 50 characters`
-      ],
+      validations: [],
       icons: [
         {
-          name: 'fast_forward',
+          name: 'play_arrow',
+          slot: 'before'
+        }
+      ]
+    },
+    {
+      label: 'Pipeline',
+      name: 'pipeline.name',
+      type: 'text',
+      mask: '',
+      edit: false,
+      autofocus: false,
+      validations: [],
+      icons: [
+        {
+          name: 'play_arrow',
+          slot: 'before'
+        }
+      ]
+    },
+    {
+      label: 'Task',
+      name: 'task.name',
+      type: 'text',
+      mask: '',
+      edit: false,
+      autofocus: false,
+      validations: [],
+      icons: [
+        {
+          name: 'play_arrow',
+          slot: 'before'
+        }
+      ]
+    },
+    {
+      label: 'Average Time',
+      name: 'task.averageTime',
+      type: 'text',
+      mask: '',
+      edit: false,
+      autofocus: false,
+      validations: [],
+      icons: [
+        {
+          name: 'play_arrow',
           slot: 'before'
         }
       ]
@@ -29,7 +70,9 @@ export default {
     userId: 'users.row._id',
     pipelineId: 'pipelines.row._id',
     taskId: 'tasks.row._id',
-    name: ''
+    user: 'users.row',
+    pipeline: 'pipelines.row',
+    task: 'tasks.row'
   },
   keys: ['userId', 'pipelineId', 'taskId'],
   url: 'pipeline-tasks',
@@ -45,7 +88,7 @@ export default {
       message: 'No user selected'
     },
     {
-      prop: 'pipeline.row',
+      prop: 'pipelines.row',
       message: 'No pipeline selected'
     },
     {
