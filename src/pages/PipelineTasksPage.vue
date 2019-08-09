@@ -1,12 +1,14 @@
 <template>
   <q-page padding>
-    <!-- content -->
+    <om-data-list module="pipelineTasks"></om-data-list>
   </q-page>
 </template>
 
 <script>
+import OmDataList from '../components/ui/OmDataList'
 export default {
-  // name: 'PageName',
+  components: { OmDataList },
+  name: 'PipelineTasksPage'
 }
 </script>
 
