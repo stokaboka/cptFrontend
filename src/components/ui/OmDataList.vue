@@ -7,6 +7,7 @@
           :om-title="title"
           :om-columns="displayColumns"
           :om-rows="rows"
+          :om-row="row"
           @on-row-selected="onRowClick"
         >
           <template v-slot:empty>

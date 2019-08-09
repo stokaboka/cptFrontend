@@ -14,7 +14,7 @@
           </tr>
           </thead>
           <tbody>
-          <tr v-for="row in omRows" :key="row._id" @click="onRowClick(row)">
+          <tr v-for="row in omRows" :key="row._id" @click="onRowClick(row)" :class="{'bg-secondary': omRow && row._id === omRow._id}">
             <td v-for="column in omColumns" :key="column.name">
               <span v-if="column.prop && row[column.name]">{{row[column.name][column.prop]}}</span>
               <span v-else>{{row[column.name]}}</span>
@@ -45,6 +45,10 @@ export default {
     omRows: {
       type: Array,
       required: true
+    },
+    omRow: {
+      type: Object,
+      required: false
     }
   },
   data () {
