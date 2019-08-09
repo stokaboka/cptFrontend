@@ -10,6 +10,7 @@
           @on-row-selected="onRowClick"
         >
           <template v-slot:empty>
+            <div class="text-h6 text-left">{{title}}</div>
             <span>Data not found</span>
           </template>
         </om-simple-list>
