@@ -5,7 +5,7 @@
 
         <om-simple-list
           :om-title="title"
-          :om-columns="columns"
+          :om-columns="displayColumns"
           :om-rows="rows"
           @on-row-selected="onRowClick"
         >
@@ -21,12 +21,14 @@
 
       <q-card-actions>
         <q-btn label="create" @click="onCreateClick"/>
+        <q-btn label="edit" @click="onEditClick"/>
+        <q-btn label="delete" @click="onDeleteClick"/>
       </q-card-actions>
     </q-card>
 
     <om-dialog-editor
       :om-dialog="editor.dialog"
-      :om-columns="columns"
+      :om-columns="editColumns"
       :om-mode="editor.mode"
       :om-template-row="editor.row"
       @on-dialog-commit="onDialogCommit"
@@ -40,6 +42,7 @@
 
 import OmDialogEditor from './OmDialogEditor'
 import OmSimpleList from './OmSimpleList'
+import { mapGetters } from 'vuex'
 export default {
   name: 'OmDataList',
   components: { OmSimpleList, OmDialogEditor },
@@ -62,11 +65,29 @@ export default {
     await this.$store.dispatch(`${this.module}/load`)
   },
   computed: {
+    ...mapGetters('users', { user: 'row' }),
     title () {
       return this.$store.state[this.module].title
     },
     columns () {
       return this.$store.state[this.module].columns
+    },
+    displayColumns () {
+      return this.columns.map(e => {
+        if (e.name.indexOf('.') >= 0) {
+          const a = e.name.split('.')
+          return {
+            ...e,
+            name: a[0],
+            prop: a[1]
+          }
+        } else {
+          return { ...e, prop: false }
+        }
+      })
+    },
+    editColumns () {
+      return this.columns.filter(e => e.edit)
     },
     rows () {
       return this.$store.state[this.module].rows
@@ -83,8 +104,15 @@ export default {
   },
   methods: {
     async onDialogCommit (row) {
+      switch (this.editor.dialog) {
+        case 'CREATE' :
+          await this.$store.dispatch(`${this.module}/create`, row)
+          break
+        case 'EDIT' :
+          await this.$store.dispatch(`${this.module}/save`, row)
+          break
+      }
       this.editor.dialog = 'NONE'
-      await this.$store.dispatch(`${this.module}/create`, row)
     },
     onDialogCancel () {
       this.editor.dialog = 'NONE'
@@ -93,6 +121,19 @@ export default {
       this.editor.row = this.prepateTemplateRow(this.templateRow)
       if (this.editor.row !== null) {
         this.editor.dialog = 'CREATE'
+      }
+    },
+    onEditClick () {
+      if (this.checkOwner(this.user, this.row)) {
+        this.editor.row = this.row
+        if (this.editor.row !== null) {
+          this.editor.dialog = 'EDIT'
+        }
+      }
+    },
+    async onDeleteClick () {
+      if (this.row && this.checkOwner(this.user, this.row)) {
+        await this.$store.dispatch(`${this.module}/purge`, this.row)
       }
     },
     onRowClick (row) {
@@ -167,6 +208,17 @@ export default {
         }
       }
       return defVal
+    },
+
+    checkOwner (user, row) {
+      if (row) {
+        if (row.hasOwnProperty('userId')) {
+          return user !== null ? user._id === row.userId : false
+        } else {
+          return true
+        }
+      }
+      return false
     }
   }
 }

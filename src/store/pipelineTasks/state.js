@@ -8,6 +8,7 @@ export default {
       name: 'name',
       type: 'text',
       mask: '',
+      edit: true,
       autofocus: false,
       validations: [
         val => !!val || 'The pipeline name must be filled',
@@ -34,7 +35,9 @@ export default {
   url: 'pipeline-tasks',
   mutations: {
     create: 'ADD_ROW',
-    load: 'SET_ROWS'
+    load: 'SET_ROWS',
+    save: 'UPDATE_ROW',
+    remove: 'REMOVE_ROW'
   },
   required: [
     {

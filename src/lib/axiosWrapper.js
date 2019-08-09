@@ -43,3 +43,33 @@ export const post = (options) => {
       return null
     })
 }
+
+export const put = (options) => {
+  const { commit } = options.store
+  const { params, url, mutation } = options
+
+  return axios.put(`/${url}`, params)
+    .then(response => {
+      commit(mutation, response.data)
+      return response.data
+    })
+    .catch(error => {
+      errorNotify(error.message)
+      return null
+    })
+}
+
+export const remove = (options) => {
+  const { commit } = options.store
+  const { params, url, mutation } = options
+
+  return axios.delete(`/${url}`, { data: params })
+    .then(response => {
+      commit(mutation, params)
+      return response.data
+    })
+    .catch(error => {
+      errorNotify(error.message)
+      return null
+    })
+}

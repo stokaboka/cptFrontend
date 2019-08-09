@@ -8,6 +8,7 @@ export default {
       name: 'login',
       type: 'text',
       mask: '',
+      edit: true,
       autofocus: true,
       validations: [
         val => !!val || 'The login must be filled',
@@ -26,6 +27,7 @@ export default {
       name: 'name',
       type: 'text',
       mask: '',
+      edit: true,
       autofocus: false,
       validations: [
         val => !!val || 'Username must be filled',
@@ -50,7 +52,9 @@ export default {
   url: 'users',
   mutations: {
     create: 'ADD_ROW',
-    load: 'SET_ROWS'
+    load: 'SET_ROWS',
+    save: 'UPDATE_ROW',
+    remove: 'REMOVE_ROW'
   },
   required: []
 }

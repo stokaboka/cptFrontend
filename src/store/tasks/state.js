@@ -8,7 +8,8 @@ export default {
       name: 'name',
       type: 'text',
       mask: '',
-      autofocus: false,
+      edit: true,
+      autofocus: true,
       validations: [
         val => !!val || 'The task name must be filled',
         val => (val && val.length >= 3) || `Task name at least 3 characters`,
@@ -26,6 +27,7 @@ export default {
       name: 'averageTime',
       type: 'number',
       mask: '',
+      edit: true,
       autofocus: false,
       validations: [
         val => !!val || 'The average time must be filled',
@@ -34,6 +36,21 @@ export default {
       icons: [
         {
           name: 'access_time',
+          slot: 'before'
+        }
+      ]
+    },
+    {
+      label: 'User',
+      name: 'user.name',
+      type: 'text',
+      mask: '',
+      edit: false,
+      autofocus: false,
+      validations: [],
+      icons: [
+        {
+          name: 'play_arrow',
           slot: 'before'
         }
       ]
@@ -51,7 +68,9 @@ export default {
   url: 'tasks',
   mutations: {
     create: 'ADD_ROW',
-    load: 'SET_ROWS'
+    load: 'SET_ROWS',
+    save: 'UPDATE_ROW',
+    remove: 'REMOVE_ROW'
   },
   required: [
     {

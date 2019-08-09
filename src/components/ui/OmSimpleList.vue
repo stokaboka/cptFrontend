@@ -1,6 +1,6 @@
 <template>
   <div>
-    <q-markup-table v-if="notEmpty">
+    <q-markup-table v-if="notEmpty" separator="cell">
           <thead>
           <tr>
             <th :colspan="omColumns.length">
@@ -15,7 +15,10 @@
           </thead>
           <tbody>
           <tr v-for="row in omRows" :key="row._id" @click="onRowClick(row)">
-            <td v-for="column in omColumns" :key="column.name">{{row[column.name]}}</td>
+            <td v-for="column in omColumns" :key="column.name">
+              <span v-if="column.prop && row[column.name]">{{row[column.name][column.prop]}}</span>
+              <span v-else>{{row[column.name]}}</span>
+            </td>
           </tr>
           </tbody>
         </q-markup-table>

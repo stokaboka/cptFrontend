@@ -1,4 +1,21 @@
-/*
-export function someMutation (state) {
+export const SET_ROWS = (state, playload) => {
+  state.rows = playload
 }
-*/
+
+export const SET_ROW = (state, playload) => {
+  state.row = playload
+}
+
+export const ADD_ROW = (state, playload) => {
+  state.rows.push(playload)
+}
+
+export const UPDATE_ROW = (state, playload) => {
+  state.rows = state.rows.map(e => {
+    return (e._id === playload._id) ? { ...playload } : e
+  })
+}
+
+export const REMOVE_ROW = (state, playload) => {
+  state.rows = state.rows.filter(e => e._id !== playload._id)
+}
