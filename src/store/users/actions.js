@@ -1,8 +1,8 @@
 import { get, post } from '../../lib/axiosWrapper'
 
 export const load = ({ state, commit }, params) => {
-  const { keys, url } = state.model
-  const mutation = state.model.mutations.load
+  const { keys, url } = state
+  const mutation = state.mutations.load
   return get({
     store: {
       commit
@@ -15,8 +15,8 @@ export const load = ({ state, commit }, params) => {
 }
 
 export const create = ({ state, commit }, params) => {
-  const { url } = state.model
-  const mutation = state.model.mutations.create
+  const { url } = state
+  const mutation = state.mutations.create
   return post({
     store: {
       commit

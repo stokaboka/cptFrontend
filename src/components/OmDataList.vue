@@ -1,7 +1,7 @@
 <template>
   <div>
     <q-card>
-      <q-card-section class="bg-primary text-white">
+      <q-card-section>
 
         <om-simple-list
           :om-title="title"
@@ -36,7 +36,7 @@
 </template>
 
 <script>
-// import { mapMutations, mapActions } from 'vuex'
+
 import OmDialogEditor from './ui/OmDialogEditor'
 import OmSimpleList from './ui/OmSimpleList'
 export default {
@@ -53,44 +53,6 @@ export default {
       editor: {
         dialog: 'NONE',
         mode: '',
-        columns: [
-          {
-            label: 'Login',
-            name: 'login',
-            type: 'text',
-            mask: '',
-            autofocus: true,
-            validations: [
-              val => !!val || 'Логин пользователя должно быть заполнено',
-              val => (val && val.length >= 3) || `Логин пользователя не менее 3 символов`,
-              val => (val && val.length < 50) || `Логин пользователя не более 50 символов`
-            ],
-            icons: [
-              {
-                name: 'person_outline',
-                slot: 'before'
-              }
-            ]
-          },
-          {
-            label: 'Name',
-            name: 'name',
-            type: 'text',
-            mask: '',
-            autofocus: false,
-            validations: [
-              val => !!val || 'Имя пользователя должно быть заполнено',
-              val => (val && val.length >= 3) || `Имя пользователя не менее 3 символов`,
-              val => (val && val.length < 50) || `Имя пользователя не более 50 символов`
-            ],
-            icons: [
-              {
-                name: 'person_outline',
-                slot: 'before'
-              }
-            ]
-          }
-        ],
         row: {}
       }
     }
@@ -99,30 +61,26 @@ export default {
     await this.$store.dispatch(`${this.module}/load`)
   },
   computed: {
-    model () {
-      return this.$store.state[this.module].model
-    },
     title () {
-      return this.model.title
+      return this.$store.state[this.module].title
     },
     columns () {
-      return this.model.columns
+      return this.$store.state[this.module].columns
     },
     rows () {
-      return this.model.rows
+      return this.$store.state[this.module].rows
     },
     row () {
-      return this.model.row
+      return this.$store.state[this.module].row
     },
     templateRow () {
-      return this.model.templateRow
+      return this.$store.state[this.module].templateRow
     }
   },
   methods: {
     async onDialogCommit (row) {
       this.editor.dialog = 'NONE'
       await this.$store.dispatch(`${this.module}/create`, row)
-      // await this.createUser(row)
     },
     onDialogCancel () {
       this.editor.dialog = 'NONE'
@@ -134,10 +92,7 @@ export default {
     onRowClick (row) {
       console.log(row)
       this.$store.commit(`${this.module}/SET_ROW`, row)
-      // this.SET_USER(row)
     }
-    // ...mapMutations('app', ['SET_USER']),
-    // ...mapActions('app', ['loadUsers', 'createUser'])
   }
 }
 </script>
