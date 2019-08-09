@@ -76,6 +76,9 @@ export default {
     },
     templateRow () {
       return this.$store.state[this.module].templateRow
+    },
+    required () {
+      return this.$store.state[this.module].required
     }
   },
   methods: {
@@ -87,8 +90,10 @@ export default {
       this.editor.dialog = 'NONE'
     },
     async onCreateClick () {
-      this.editor.dialog = 'CREATE'
       this.editor.row = this.prepateTemplateRow(this.templateRow)
+      if (this.editor.row !== null) {
+        this.editor.dialog = 'CREATE'
+      }
     },
     onRowClick (row) {
       console.log(row)
@@ -98,17 +103,47 @@ export default {
       const out = { ...templateRow }
       for (const item in out) {
         const itemValue = out[item]
-        if (typeof itemValue === 'string' && itemValue.indexOf('.') > 0) {
-          const parts = itemValue.split('.')
-          if (parts.length === 3) {
-            out[item] = this.getModulePropFieldValue(parts, itemValue)
-          }
-          if (parts.length === 2) {
-            out[item] = this.getModulePropValue(parts, itemValue)
+        if (itemValue) {
+          const checkRequired = this.checkRequiredValue(this.required, itemValue)
+          if (checkRequired.result) {
+            const bindingValue = this.getBindingValue(itemValue, itemValue)
+            out[item] = bindingValue
+          } else {
+            this.$q.notify({
+              color: 'red',
+              textColor: 'white',
+              message: checkRequired.message
+            })
+            return null
           }
         }
       }
       return out
+    },
+    checkRequiredValue (required, itemValue) {
+      const rule = required.find(e => itemValue.startsWith(e.prop))
+      const out = {
+        result: true,
+        message: ''
+      }
+      if (rule) {
+        const checkValue = this.getBindingValue(rule.prop, null)
+        out.result = checkValue !== null
+        out.message = out.result ? '' : rule.message
+      }
+      return out
+    },
+    getBindingValue (itemValue, defVal) {
+      if (typeof itemValue === 'string' && itemValue.indexOf('.') > 0) {
+        const parts = itemValue.split('.')
+        if (parts.length === 3) {
+          return this.getModulePropFieldValue(parts, defVal)
+        }
+        if (parts.length === 2) {
+          return this.getModulePropValue(parts, defVal)
+        }
+      }
+      return defVal
     },
     getModulePropValue (parts, defVal) {
       const module = parts[0]

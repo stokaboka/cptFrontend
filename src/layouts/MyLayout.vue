@@ -16,7 +16,7 @@
           Pipelined Tasks App
         </q-toolbar-title>
 
-        <div>User: <strong>{{user.name || user.login}}</strong></div>
+        <div v-if="user">User: <strong>{{user.name || user.login}}</strong></div>
 
       </q-toolbar>
     </q-header>

@@ -55,7 +55,7 @@ export default {
     },
     omTemplateRow: {
       type: Object,
-      required: true
+      required: false
     }
   },
   data () {

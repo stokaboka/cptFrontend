@@ -40,7 +40,7 @@ export default {
       ]
     }
   ],
-  row: {},
+  row: null,
   rows: [],
   templateRow: {
     login: '',
