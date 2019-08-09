@@ -33,5 +33,11 @@ export default {
   mutations: {
     create: 'ADD_ROW',
     load: 'SET_ROWS'
-  }
+  },
+  required: [
+    {
+      prop: 'users.row',
+      message: 'No user selected'
+    }
+  ]
 }

@@ -51,5 +51,6 @@ export default {
   mutations: {
     create: 'ADD_ROW',
     load: 'SET_ROWS'
-  }
+  },
+  required: []
 }

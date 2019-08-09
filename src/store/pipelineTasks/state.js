@@ -26,7 +26,7 @@ export default {
   rows: [],
   templateRow: {
     userId: 'users.row._id',
-    pipelineId: 'pipeline.row._id',
+    pipelineId: 'pipelines.row._id',
     taskId: 'tasks.row._id',
     name: ''
   },
@@ -35,5 +35,20 @@ export default {
   mutations: {
     create: 'ADD_ROW',
     load: 'SET_ROWS'
-  }
+  },
+  required: [
+    {
+      prop: 'users.row',
+      message: 'No user selected'
+    },
+    {
+      prop: 'pipeline.row',
+      message: 'No pipeline selected'
+    },
+    {
+      prop: 'tasks.row',
+      message: 'No task selected'
+    }
+  ]
+
 }

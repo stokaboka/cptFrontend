@@ -28,7 +28,7 @@
       :om-dialog="editor.dialog"
       :om-columns="columns"
       :om-mode="editor.mode"
-      :om-template-row="templateRow"
+      :om-template-row="editor.row"
       @on-dialog-commit="onDialogCommit"
       @on-dialog-cancel="onDialogCancel"
     />
@@ -88,11 +88,50 @@ export default {
     },
     async onCreateClick () {
       this.editor.dialog = 'CREATE'
-      this.editor.row = { ...this.templateRow }
+      this.editor.row = this.prepateTemplateRow(this.templateRow)
     },
     onRowClick (row) {
       console.log(row)
       this.$store.commit(`${this.module}/SET_ROW`, row)
+    },
+    prepateTemplateRow (templateRow) {
+      const out = { ...templateRow }
+      for (const item in out) {
+        const itemValue = out[item]
+        if (typeof itemValue === 'string' && itemValue.indexOf('.') > 0) {
+          const parts = itemValue.split('.')
+          if (parts.length === 3) {
+            out[item] = this.getModulePropFieldValue(parts, itemValue)
+          }
+          if (parts.length === 2) {
+            out[item] = this.getModulePropValue(parts, itemValue)
+          }
+        }
+      }
+      return out
+    },
+    getModulePropValue (parts, defVal) {
+      const module = parts[0]
+      const prop = parts[1]
+      if (this.$store.state[module]) {
+        const value = this.$store.state[module][prop]
+        if (value) {
+          return value
+        }
+      }
+      return defVal
+    },
+    getModulePropFieldValue (parts, defVal) {
+      const module = parts[0]
+      const prop = parts[1]
+      const field = parts[2]
+      if (this.$store.state[module] && this.$store.state[module][prop]) {
+        const value = this.$store.state[module][prop][field]
+        if (value) {
+          return value
+        }
+      }
+      return defVal
     }
   }
 }

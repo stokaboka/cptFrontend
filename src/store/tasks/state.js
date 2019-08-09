@@ -20,18 +20,43 @@ export default {
           slot: 'before'
         }
       ]
+    },
+    {
+      label: 'Average Time',
+      name: 'averageTime',
+      type: 'number',
+      mask: '',
+      autofocus: false,
+      validations: [
+        val => !!val || 'The average time must be filled',
+        val => (val > 0) || `The average time must be greater than zero`
+      ],
+      icons: [
+        {
+          name: 'access_time',
+          slot: 'before'
+        }
+      ]
     }
   ],
   row: {},
   rows: [],
   templateRow: {
     userId: 'users.row._id',
-    name: ''
+    user: 'users.row',
+    name: '',
+    averageTime: 0
   },
-  keys: ['userId', 'name'],
+  keys: ['userId', 'name', 'averageTime'],
   url: 'tasks',
   mutations: {
     create: 'ADD_ROW',
     load: 'SET_ROWS'
-  }
+  },
+  required: [
+    {
+      prop: 'users.row',
+      message: 'No user selected'
+    }
+  ]
 }
