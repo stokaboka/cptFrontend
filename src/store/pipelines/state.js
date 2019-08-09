@@ -38,7 +38,7 @@ export default {
       ]
     }
   ],
-  row: {},
+  row: null,
   rows: [],
   templateRow: {
     userId: 'users.row._id',

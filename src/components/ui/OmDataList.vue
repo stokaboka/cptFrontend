@@ -22,8 +22,8 @@
 
       <q-card-actions>
         <q-btn label="create" @click="onCreateClick"/>
-        <q-btn label="edit" @click="onEditClick"/>
-        <q-btn label="delete" @click="onDeleteClick"/>
+        <q-btn label="edit" :disable="!row" @click="onEditClick"/>
+        <q-btn label="delete" :disable="!row" @click="onDeleteClick"/>
       </q-card-actions>
     </q-card>
 
@@ -130,11 +130,23 @@ export default {
         if (this.editor.row !== null) {
           this.editor.dialog = 'EDIT'
         }
+      } else {
+        this.$q.notify({
+          color: 'negative',
+          textColor: 'white',
+          message: 'No user selected or access denied'
+        })
       }
     },
     async onDeleteClick () {
       if (this.row && this.checkOwner(this.user, this.row)) {
         await this.$store.dispatch(`${this.module}/purge`, this.row)
+      } else {
+        this.$q.notify({
+          color: 'negative',
+          textColor: 'white',
+          message: 'No user selected or access denied'
+        })
       }
     },
     onRowClick (row) {
@@ -152,7 +164,7 @@ export default {
             out[item] = bindingValue
           } else {
             this.$q.notify({
-              color: 'red',
+              color: 'negative',
               textColor: 'white',
               message: checkRequired.message
             })
