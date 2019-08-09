@@ -2,7 +2,6 @@
   <div>
     <q-card>
       <q-card-section>
-
         <om-simple-list
           :om-title="title"
           :om-columns="displayColumns"
@@ -21,9 +20,9 @@
       <q-separator/>
 
       <q-card-actions>
-        <q-btn label="create" @click="onCreateClick"/>
-        <q-btn label="edit" :disable="!row" @click="onEditClick"/>
-        <q-btn label="delete" :disable="!row" @click="onDeleteClick"/>
+        <q-btn v-if="edit.create" label="create" @click="onCreateClick"/>
+        <q-btn v-if="edit.edit" label="edit" :disable="!row" @click="onEditClick"/>
+        <q-btn v-if="edit.delete" label="delete" :disable="!row" @click="onDeleteClick"/>
       </q-card-actions>
     </q-card>
 
@@ -51,6 +50,10 @@ export default {
     module: {
       type: String,
       required: true
+    },
+    omFilter: {
+      type: Object,
+      required: false
     }
   },
   data () {
@@ -63,7 +66,12 @@ export default {
     }
   },
   async mounted () {
-    await this.$store.dispatch(`${this.module}/load`)
+    await this.$store.dispatch(`${this.module}/load`, this.omFilter)
+  },
+  watch: {
+    async omFilter (val) {
+      await this.$store.dispatch(`${this.module}/load`, val)
+    }
   },
   computed: {
     ...mapGetters('users', { user: 'row' }),
@@ -75,15 +83,17 @@ export default {
     },
     displayColumns () {
       return this.columns.map(e => {
+        const key = e.name
         if (e.name.indexOf('.') >= 0) {
           const a = e.name.split('.')
           return {
             ...e,
             name: a[0],
-            prop: a[1]
+            prop: a[1],
+            key
           }
         } else {
-          return { ...e, prop: false }
+          return { ...e, prop: false, key }
         }
       })
     },
@@ -101,6 +111,27 @@ export default {
     },
     required () {
       return this.$store.state[this.module].required
+    },
+    dialog () {
+      if (this.$store.state[this.module].dialog) {
+        return this.$store.state[this.module].dialog
+      } else {
+        return {
+          create: true,
+          edit: true
+        }
+      }
+    },
+    edit () {
+      if (this.$store.state[this.module].edit) {
+        return this.$store.state[this.module].edit
+      } else {
+        return {
+          create: true,
+          edit: true,
+          delete: true
+        }
+      }
     }
   },
   methods: {
@@ -121,14 +152,20 @@ export default {
     async onCreateClick () {
       this.editor.row = this.prepateTemplateRow(this.templateRow)
       if (this.editor.row !== null) {
-        this.editor.dialog = 'CREATE'
+        if (this.dialog.create) {
+          this.editor.dialog = 'CREATE'
+        } else {
+          await this.$store.dispatch(`${this.module}/create`, this.editor.row)
+        }
       }
     },
     onEditClick () {
       if (this.checkOwner(this.user, this.row)) {
         this.editor.row = this.row
         if (this.editor.row !== null) {
-          this.editor.dialog = 'EDIT'
+          if (this.dialog.edit) {
+            this.editor.dialog = 'EDIT'
+          }
         }
       } else {
         this.$q.notify({

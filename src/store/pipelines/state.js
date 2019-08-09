@@ -36,6 +36,21 @@ export default {
           slot: 'before'
         }
       ]
+    },
+    {
+      label: 'Pipeline Run Time',
+      name: 'pipelineRunTime',
+      type: 'text',
+      mask: '',
+      edit: false,
+      autofocus: false,
+      validations: [],
+      icons: [
+        {
+          name: 'fast_forward',
+          slot: 'before'
+        }
+      ]
     }
   ],
   row: null,
@@ -58,5 +73,14 @@ export default {
       prop: 'users.row',
       message: 'No user selected'
     }
-  ]
+  ],
+  dialog: {
+    create: true,
+    edit: true
+  },
+  edit: {
+    create: true,
+    edit: true,
+    delete: true
+  }
 }

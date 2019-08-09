@@ -8,14 +8,14 @@
             </th>
           </tr>
           <tr>
-            <th v-for="column in omColumns" :key="column.name">
-              {{column.label}}
+            <th v-for="column in omColumns" :key="column.key">
+              <strong>{{column.label}}</strong>
             </th>
           </tr>
           </thead>
           <tbody>
           <tr v-for="row in omRows" :key="row._id" @click="onRowClick(row)" :class="{'bg-secondary': omRow && row._id === omRow._id}">
-            <td v-for="column in omColumns" :key="column.name">
+            <td v-for="column in omColumns" :key="column.key">
               <span v-if="column.prop && row[column.name]">{{row[column.name][column.prop]}}</span>
               <span v-else>{{row[column.name]}}</span>
             </td>

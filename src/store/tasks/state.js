@@ -77,5 +77,14 @@ export default {
       prop: 'users.row',
       message: 'No user selected'
     }
-  ]
+  ],
+  dialog: {
+    create: true,
+    edit: true
+  },
+  edit: {
+    create: true,
+    edit: true,
+    delete: true
+  }
 }

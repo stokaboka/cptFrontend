@@ -56,5 +56,14 @@ export default {
     save: 'UPDATE_ROW',
     remove: 'REMOVE_ROW'
   },
-  required: []
+  required: [],
+  dialog: {
+    create: true,
+    edit: true
+  },
+  edit: {
+    create: true,
+    edit: true,
+    delete: true
+  }
 }

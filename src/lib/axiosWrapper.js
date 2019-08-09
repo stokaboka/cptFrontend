@@ -48,9 +48,13 @@ export const put = (options) => {
   const { commit } = options.store
   const { params, url, mutation } = options
 
+  delete params.__v
+
   return axios.put(`/${url}`, params)
     .then(response => {
-      commit(mutation, response.data)
+      if (response.data.nModified > 0) {
+        commit(mutation, params)
+      }
       return response.data
     })
     .catch(error => {

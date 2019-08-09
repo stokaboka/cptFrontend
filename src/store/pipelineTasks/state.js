@@ -95,6 +95,15 @@ export default {
       prop: 'tasks.row',
       message: 'No task selected'
     }
-  ]
+  ],
+  dialog: {
+    create: false,
+    edit: false
+  },
+  edit: {
+    create: true,
+    edit: false,
+    delete: true
+  }
 
 }
