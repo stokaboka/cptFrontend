@@ -1,30 +1,19 @@
 <template>
   <div>
-
   <q-card>
     <q-card-section>
-      <q-card-section>
-        <div class="text-h6">Users</div>
-      </q-card-section>
 
-      <q-separator />
+      <om-simple-list
+        om-title="Users"
+        :om-columns="editor.columns"
+        :om-rows="users"
+        @on-row-selected="onUserClick"
+      >
+        <template v-slot:empty>
+          <span>Users not found</span>
+        </template>
+      </om-simple-list>
 
-      <div v-if="notEmpty" class="column no-wrap">
-
-        <q-list dense bordered padding class="rounded-borders">
-          <q-item clickable v-ripple v-for="usr in users" :key="usr.id" @click="onUserClick(usr)">
-            <q-item-section>
-              <div class="row no-wrap q-gutter-md">
-                <span>{{usr.login}}</span>
-                <span>{{usr.name}}</span>
-              </div>
-            </q-item-section>
-          </q-item>
-        </q-list>
-      </div>
-      <div v-else>
-        <span>Users not found</span>
-      </div>
     </q-card-section>
 
     <q-separator/>
@@ -49,10 +38,11 @@
 <script>
 
 import { mapGetters, mapMutations, mapActions } from 'vuex'
-import OmDialogEditor from './OmDialogEditor'
+import OmDialogEditor from './ui/OmDialogEditor'
+import OmSimpleList from './ui/OmSimpleList'
 export default {
   name: 'UsersList',
-  components: { OmDialogEditor },
+  components: { OmSimpleList, OmDialogEditor },
   data () {
     return {
       editor: {
@@ -104,10 +94,7 @@ export default {
     await this.loadUsers()
   },
   computed: {
-    notEmpty () {
-      return this.users && this.users.length > 0
-    },
-    ...mapGetters('app', ['users'])
+    ...mapGetters('app', ['users', 'user'])
   },
   methods: {
 
@@ -126,6 +113,7 @@ export default {
       }
     },
     onUserClick (user) {
+      console.log(user)
       this.SET_USER(user)
     },
     ...mapMutations('app', ['SET_USER']),
