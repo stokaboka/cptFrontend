@@ -51,10 +51,11 @@ export default {
     {
       label: 'Average Time',
       name: 'task.averageTime',
-      type: 'text',
+      type: 'number',
       mask: '',
       edit: false,
       autofocus: false,
+      aggregate: 'sum',
       validations: [],
       icons: [
         {

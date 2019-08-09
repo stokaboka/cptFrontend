@@ -1,5 +1,6 @@
 export const SET_ROWS = (state, playload) => {
   state.rows = playload
+  state.row = null
 }
 
 export const SET_ROW = (state, playload) => {

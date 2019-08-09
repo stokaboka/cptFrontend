@@ -40,8 +40,9 @@ export default {
     {
       label: 'Pipeline Run Time',
       name: 'pipelineRunTime',
-      type: 'text',
+      type: 'number',
       mask: '',
+      aggregate: 'sum',
       edit: false,
       autofocus: false,
       validations: [],

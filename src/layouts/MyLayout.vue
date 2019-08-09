@@ -16,7 +16,11 @@
           Pipelined Tasks App
         </q-toolbar-title>
 
+        <div class="row q-gutter-md">
         <div v-if="user">User: <strong>{{user.name || user.login}}</strong></div>
+        <div v-if="task">Task: <strong>{{task.name}}</strong></div>
+        <div v-if="pipeline">Pipeline: <strong>{{pipeline.name}}</strong></div>
+        </div>
 
       </q-toolbar>
     </q-header>
@@ -75,7 +79,9 @@ export default {
     }
   },
   computed: {
-    ...mapGetters('users', { user: 'row' })
+    ...mapGetters('users', { user: 'row' }),
+    ...mapGetters('tasks', { task: 'row' }),
+    ...mapGetters('pipelines', { pipeline: 'row' })
   },
   methods: {
     openURL

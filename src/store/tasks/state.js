@@ -27,6 +27,7 @@ export default {
       name: 'averageTime',
       type: 'number',
       mask: '',
+      aggregate: 'sum',
       edit: true,
       autofocus: false,
       validations: [
