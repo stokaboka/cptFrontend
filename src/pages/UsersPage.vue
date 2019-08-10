@@ -4,7 +4,11 @@
     <div class="text-body1">Select "User", "Pipeline", "Task" and click the "CREATE" button in the "Pipeline Tasks" panel</div>
     <div class="row q-gutter-md">
       <om-data-list module="users"></om-data-list>
-      <om-data-list module="pipelines" :om-filter="pipelineFilter"></om-data-list>
+      <om-data-list module="pipelines" :om-filter="pipelineFilter">
+        <template v-slot:actions>
+          <q-btn label="run pipeline" @click="onRunPipelineClick"/>
+        </template>
+      </om-data-list>
       <om-data-list module="pipelineTasks" :om-filter="pipelineTasksFilter"></om-data-list>
       <om-data-list module="tasks"></om-data-list>
     </div>
@@ -13,7 +17,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 import OmDataList from '../components/ui/OmDataList'
 
 const userFilter = (user) => {
@@ -60,6 +64,21 @@ export default {
     ...mapGetters('users', { user: 'row' }),
     ...mapGetters('tasks', { task: 'row' }),
     ...mapGetters('pipelines', { pipeline: 'row' })
+  },
+  methods: {
+    async onRunPipelineClick () {
+      if (this.pipeline) {
+        const response = await this.runPipeline({ ...this.pipeline })
+        console.log('Users run', response)
+      } else {
+        this.$q.notify({
+          color: 'negative',
+          textColor: 'white',
+          message: 'No pipeline selected'
+        })
+      }
+    },
+    ...mapActions('pipelines', { runPipeline: 'run' })
   },
   watch: {
     user (val) {

@@ -1,4 +1,11 @@
+import Vue from 'vue'
 import { get, post, put, remove } from '../../lib/axiosWrapper'
+
+const uint8ToString = (buf) => {
+  const encodedString = String.fromCharCode.apply(null, new Uint8Array(buf))
+  const decodedString = decodeURIComponent(escape(encodedString))
+  return decodedString
+}
 
 export const load = ({ state, commit }, params) => {
   const { keys, url } = state
@@ -66,5 +73,21 @@ export const purge = ({ state, commit }, params) => {
     params,
     url,
     mutation
+  })
+}
+
+export const run = ({ state, commit }, params) => {
+  return new Promise((resolve, reject) => {
+    try {
+      Vue.prototype.$socket.emit('run-pipeline', { ...params }, response => {
+        console.log('run actions', response)
+        const data = uint8ToString(response.output.data)
+        console.log('run actions', data)
+        resolve({ ...response, data })
+      })
+    } catch (e) {
+      console.error('run actions', e)
+      reject(null)
+    }
   })
 }

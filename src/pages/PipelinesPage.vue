@@ -1,12 +1,16 @@
 <template>
   <q-page padding class="row q-gutter-md">
-    <om-data-list module="pipelines"></om-data-list>
+    <om-data-list module="pipelines">
+      <template v-slot:actions>
+        <q-btn label="run pipeline" @click="onRunPipelineClick"/>
+      </template>
+    </om-data-list>
     <om-data-list module="pipelineTasks" :om-filter="pipelineTasksFilter"></om-data-list>
   </q-page>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 import OmDataList from '../components/ui/OmDataList'
 export default {
   components: { OmDataList },
@@ -20,6 +24,21 @@ export default {
       return null
     },
     ...mapGetters('pipelines', { pipeline: 'row' })
+  },
+  methods: {
+    async onRunPipelineClick () {
+      if (this.pipeline) {
+        const response = await this.runPipeline({ ...this.pipeline })
+        console.log('Users run', response)
+      } else {
+        this.$q.notify({
+          color: 'negative',
+          textColor: 'white',
+          message: 'No pipeline selected'
+        })
+      }
+    },
+    ...mapActions('pipelines', { runPipeline: 'run' })
   }
 }
 </script>

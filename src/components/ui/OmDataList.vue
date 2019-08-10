@@ -24,6 +24,9 @@
         <q-btn v-if="edit.create" label="create" @click="onCreateClick"/>
         <q-btn v-if="edit.edit" label="edit" :disable="!row" @click="onEditClick"/>
         <q-btn v-if="edit.delete" label="delete" :disable="!row" @click="onDeleteClick"/>
+        <div>
+          <slot name="actions"></slot>
+        </div>
       </q-card-actions>
     </q-card>
 
