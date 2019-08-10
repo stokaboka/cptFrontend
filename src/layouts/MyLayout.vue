@@ -17,9 +17,27 @@
         </q-toolbar-title>
 
         <div class="row q-gutter-md">
-        <div v-if="user">User: <strong>{{user.name || user.login}}</strong></div>
-        <div v-if="task">Task: <strong>{{task.name}}</strong></div>
-        <div v-if="pipeline">Pipeline: <strong>{{pipeline.name}}</strong></div>
+
+          <q-chip v-if="taskRunner.message" class="shadow-3">
+            <q-avatar :icon="taskRunner.busy ? 'loop' : 'stop'" :color="taskRunner.busy ? 'red' : 'green' " text-color="white" />
+            <strong>{{taskRunner.message}}</strong>
+          </q-chip>
+
+          <q-chip v-if="user" class="shadow-3">
+            <q-avatar icon="person" color="positive" text-color="white" />
+            <strong>{{user.name || user.login}}</strong>
+          </q-chip>
+
+          <q-chip v-if="pipeline" class="shadow-3">
+            <q-avatar icon="fast_forward" color="accent" text-color="white" />
+            <strong>{{pipeline.name}}</strong>
+          </q-chip>
+
+          <q-chip v-if="task" class="shadow-3">
+            <q-avatar icon="play_arrow" color="secondary" text-color="white" />
+            <strong>{{task.name}}</strong>
+          </q-chip>
+
         </div>
 
       </q-toolbar>
@@ -79,6 +97,7 @@ export default {
     }
   },
   computed: {
+    ...mapGetters('app', ['taskRunner']),
     ...mapGetters('users', { user: 'row' }),
     ...mapGetters('tasks', { task: 'row' }),
     ...mapGetters('pipelines', { pipeline: 'row' })

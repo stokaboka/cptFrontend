@@ -93,17 +93,3 @@ export const run = ({ state, commit }, params) => {
     }
   })
 }
-
-export const status = ({ state, commit }, params) => {
-  return new Promise((resolve, reject) => {
-    try {
-      Vue.prototype.$socket.emit('task-runner-status', { ...params }, response => {
-        console.log('status', response)
-        resolve({ ...response })
-      })
-    } catch (e) {
-      console.error('run actions', e)
-      reject(null)
-    }
-  })
-}

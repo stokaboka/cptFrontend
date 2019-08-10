@@ -47,20 +47,6 @@ export default {
     }
   },
   computed: {
-    // pipelineFilter () {
-    //   if (this.user) {
-    //     const { _id: userId } = this.user
-    //     return { userId }
-    //   }
-    //   return { userId: '_' }
-    // },
-    // pipelineTasksFilter () {
-    //   if (this.pipeline) {
-    //     const { _id: pipelineId, userId } = this.pipeline
-    //     return { pipelineId, userId }
-    //   }
-    //   return { pipelineId: '_', userId: '_' }
-    // },
     ...mapGetters('users', { user: 'row' }),
     ...mapGetters('tasks', { task: 'row' }),
     ...mapGetters('pipelines', { pipeline: 'row' })

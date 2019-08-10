@@ -22,9 +22,9 @@ export default async ({ store, Vue }) => {
     console.log('testing', data)
   })
 
-  socket.on('task-runner', function (data) {
-    console.log('task-runner', data)
-  })
+  // socket.on('task-runner-status', function (data) {
+  //   console.log('task-runner-status', data)
+  // })
 
   socket.on('disconnect', function () {
     console.log('Disconnected')

@@ -33,6 +33,8 @@ module.exports = function (ctx) {
       // all: true, // --- includes everything; for dev only!
 
       components: [
+        'QAvatar',
+        'QSpace',
         'QLayout',
         'QHeader',
         'QCard',
@@ -40,6 +42,7 @@ module.exports = function (ctx) {
         'QCardActions',
         'QDrawer',
         'QDialog',
+        'QChip',
         'QPageContainer',
         'QPage',
         'QInput',
