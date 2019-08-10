@@ -23,7 +23,7 @@ export default {
       ]
     },
     {
-      label: 'Average Time',
+      label: 'Average Time (seconds)',
       name: 'averageTime',
       type: 'number',
       mask: '',
@@ -32,7 +32,8 @@ export default {
       autofocus: false,
       validations: [
         val => !!val || 'The average time must be filled',
-        val => (val > 0) || `The average time must be greater than zero`
+        val => (val > 0) || `The average time must be greater than zero`,
+        val => (val < 11) || `Average time should be less than or equal to ten`
       ],
       icons: [
         {

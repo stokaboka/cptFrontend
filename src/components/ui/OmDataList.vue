@@ -207,7 +207,7 @@ export default {
       }
     },
     onRowClick (row) {
-      console.log(row)
+      // console.log(row)
       this.$store.commit(`${this.module}/SET_ROW`, row)
     },
     prepateTemplateRow (templateRow) {

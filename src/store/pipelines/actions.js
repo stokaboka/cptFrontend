@@ -25,7 +25,7 @@ export const aggregate = ({ state, commit }, params) => {
   const { keys, url } = state
   const { url: urlAggregate } = state.aggregate
   const mutation = null
-  console.log(state.id, params, urlAggregate)
+  // console.log(state.id, params, urlAggregate)
   return get({
     store: {
       commit
@@ -80,10 +80,26 @@ export const run = ({ state, commit }, params) => {
   return new Promise((resolve, reject) => {
     try {
       Vue.prototype.$socket.emit('run-pipeline', { ...params }, response => {
-        console.log('run actions', response)
-        const data = uint8ToString(response.output.data)
-        console.log('run actions', data)
+        let data = ''
+        if (response.output && response.output.data) {
+          data = uint8ToString(response.output.data)
+          console.log('run actions DATA', data)
+        }
         resolve({ ...response, data })
+      })
+    } catch (e) {
+      console.error('run actions', e)
+      reject(null)
+    }
+  })
+}
+
+export const status = ({ state, commit }, params) => {
+  return new Promise((resolve, reject) => {
+    try {
+      Vue.prototype.$socket.emit('task-runner-status', { ...params }, response => {
+        console.log('status', response)
+        resolve({ ...response })
       })
     } catch (e) {
       console.error('run actions', e)
