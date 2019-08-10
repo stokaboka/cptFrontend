@@ -292,15 +292,15 @@ export default {
     },
 
     checkOwner (user, row) {
-      return true
-      // if (row) {
-      //   if (row.hasOwnProperty('userId')) {
-      //     return user !== null ? user._id === row.userId : false
-      //   } else {
-      //     return true
-      //   }
-      // }
-      // return false
+      // return true
+      if (row) {
+        if (row.hasOwnProperty('userId')) {
+          return user !== null ? user._id === row.userId : false
+        } else {
+          return true
+        }
+      }
+      return false
     }
   }
 }
