@@ -149,6 +149,14 @@ export default {
   methods: {
     async load (filter) {
       await this.$store.dispatch(`${this.module}/load`, filter)
+      await this.doAggregate(filter)
+      // if (this.aggregate) {
+      //   const rows = await this.$store.dispatch(`${this.module}/aggregate`, filter)
+      //   this.aggregateRow = (rows !== null && rows.length > 0) ? rows[0] : null
+      // }
+    },
+
+    async doAggregate (filter) {
       if (this.aggregate) {
         const rows = await this.$store.dispatch(`${this.module}/aggregate`, filter)
         this.aggregateRow = (rows !== null && rows.length > 0) ? rows[0] : null
@@ -159,9 +167,11 @@ export default {
       switch (this.editor.dialog) {
         case 'CREATE' :
           await this.$store.dispatch(`${this.module}/create`, row)
+          this.doAggregate(this.omFilter)
           break
         case 'EDIT' :
           await this.$store.dispatch(`${this.module}/save`, row)
+          this.doAggregate(this.omFilter)
           break
       }
       this.editor.dialog = 'NONE'
@@ -198,6 +208,7 @@ export default {
     async onDeleteClick () {
       if (this.row && this.checkOwner(this.user, this.row)) {
         await this.$store.dispatch(`${this.module}/purge`, this.row)
+        this.doAggregate(this.omFilter)
       } else {
         this.$q.notify({
           color: 'negative',
@@ -281,14 +292,15 @@ export default {
     },
 
     checkOwner (user, row) {
-      if (row) {
-        if (row.hasOwnProperty('userId')) {
-          return user !== null ? user._id === row.userId : false
-        } else {
-          return true
-        }
-      }
-      return false
+      return true
+      // if (row) {
+      //   if (row.hasOwnProperty('userId')) {
+      //     return user !== null ? user._id === row.userId : false
+      //   } else {
+      //     return true
+      //   }
+      // }
+      // return false
     }
   }
 }
