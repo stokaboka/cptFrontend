@@ -21,11 +21,12 @@ export default {
       const { active, scheduled, updated, message, busy } = status
       console.log('App onTaskRunnerStatus', status)
 
-      this.SET_TASK_RUNNER({ message, busy })
-
       if (updated) {
+        this.SET_TASK_RUNNER({ message: `${message}: ${updated.name}`, busy })
         this.PIPELINE_UPDATE_ROW(updated)
         this.PIPELINE_UPDATE_ROW_STATUS({ _id: updated._id, status: 'RUN' })
+      } else {
+        this.SET_TASK_RUNNER({ message, busy })
       }
 
       if (scheduled) {

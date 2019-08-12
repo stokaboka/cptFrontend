@@ -7,5 +7,6 @@ export default {
   taskRunner: {
     message: '',
     busy: false
-  }
+  },
+  taskRunnerLog: []
 }
