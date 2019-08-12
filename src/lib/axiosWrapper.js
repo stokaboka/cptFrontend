@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2019. Igor Khorev <igorhorev@gmail.com> http://orangem.me
+ */
+
 import { objectToParamStr } from './utils'
 import axios from 'axios'
 import { Notify } from 'quasar'

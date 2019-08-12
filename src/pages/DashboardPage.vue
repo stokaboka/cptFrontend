@@ -1,3 +1,7 @@
+<!--
+  - Copyright (c) 2019. Igor Khorev <igorhorev@gmail.com> http://orangem.me
+  -->
+
 <template>
   <q-page padding class="column q-gutter-md">
     <div class="text-h6">Users, Pipelines, Tasks</div>

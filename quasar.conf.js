@@ -7,7 +7,8 @@ module.exports = function (ctx) {
     // --> boot files are part of "main.js"
     boot: [
       'axios',
-      'socket-io'
+      'socket-io',
+      'notify'
     ],
 
     css: [

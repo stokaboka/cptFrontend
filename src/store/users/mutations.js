@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2019. Igor Khorev <igorhorev@gmail.com> http://orangem.me
+ */
+
 export const SET_ROWS = (state, playload) => {
   state.rows = playload
   state.row = null

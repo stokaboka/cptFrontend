@@ -1,3 +1,7 @@
+<!--
+  - Copyright (c) 2019. Igor Khorev <igorhorev@gmail.com> http://orangem.me
+  -->
+
 <template>
   <q-page padding class="row q-gutter-md">
     <om-data-list module="pipelines">

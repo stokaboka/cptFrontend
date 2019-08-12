@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2019. Igor Khorev <igorhorev@gmail.com> http://orangem.me
+ */
+
 import { get, post, put, remove } from '../../lib/axiosWrapper'
 
 export const load = ({ state, commit }, params) => {

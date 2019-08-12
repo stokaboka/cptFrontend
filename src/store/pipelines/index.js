@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2019. Igor Khorev <igorhorev@gmail.com> http://orangem.me
+ */
+
 import state from './state'
 import * as getters from './getters'
 import * as mutations from './mutations'
