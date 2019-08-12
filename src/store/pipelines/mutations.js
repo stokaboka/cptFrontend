@@ -20,7 +20,7 @@ export const UPDATE_ROW = (state, playload) => {
 export const UPDATE_ROW_STATUS = (state, playload) => {
   const { _id, status } = playload
   state.rows = state.rows.map(e => {
-    return (e._id === _id) ? { ...e, status } : { ...e, status: 'NONE' }
+    return (e._id === _id) ? { ...e, status } : e
   })
 }
 

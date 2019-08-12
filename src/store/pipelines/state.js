@@ -52,6 +52,16 @@ export default {
           slot: 'before'
         }
       ]
+    },
+    {
+      label: 'Status',
+      name: 'status',
+      type: 'text',
+      mask: '',
+      edit: false,
+      autofocus: false,
+      validations: [],
+      icons: []
     }
   ],
   row: null,

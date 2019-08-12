@@ -77,7 +77,7 @@ export const purge = ({ state, commit }, params) => {
 }
 
 export const run = ({ state, commit }, params) => {
-  commit('app/CLEAR_TASK_RUNNER_LOG', null, { root: true })
+  // commit('app/CLEAR_TASK_RUNNER_LOG', null, { root: true })
   return new Promise((resolve, reject) => {
     try {
       Vue.prototype.$socket.emit('run-pipeline', { ...params }, response => {

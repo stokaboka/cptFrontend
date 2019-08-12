@@ -77,18 +77,24 @@ export default {
       menu: [
         {
           id: 1,
+          label: 'Dashboard',
+          route: { name: 'dashboard' },
+          icon: 'person'
+        },
+        {
+          id: 2,
           label: 'Users',
           route: { name: 'users' },
           icon: 'person'
         },
         {
-          id: 2,
+          id: 3,
           label: 'Pipelines',
           route: { name: 'pipelines' },
           icon: 'fast_forward'
         },
         {
-          id: 3,
+          id: 4,
           label: 'Tasks',
           route: { name: 'tasks' },
           icon: 'play_arrow'
