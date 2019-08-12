@@ -11,14 +11,15 @@
       </om-data-list>
       <om-data-list module="pipelineTasks" :om-filter="pipelineTasksFilter"></om-data-list>
       <om-data-list module="tasks"></om-data-list>
+      <om-runner-log/>
     </div>
-
   </q-page>
 </template>
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
 import OmDataList from '../components/ui/OmDataList'
+import OmRunnerLog from '../components/OmRunnerLog'
 
 const userFilter = (user) => {
   if (user) {
@@ -39,7 +40,7 @@ const pipelineFilter = (pipeline = null) => {
 
 export default {
   name: 'UsersPage',
-  components: { OmDataList },
+  components: { OmRunnerLog, OmDataList },
   data () {
     return {
       pipelineFilter: null,

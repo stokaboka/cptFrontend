@@ -22,7 +22,7 @@ export default {
       console.log('App onTaskRunnerStatus', status)
 
       if (updated) {
-        this.SET_TASK_RUNNER({ message: `${message}: ${updated.name}`, busy })
+        this.SET_TASK_RUNNER({ message: `${message}: ${updated.name} - ${updated.status}`, busy })
         this.PIPELINE_UPDATE_ROW(updated)
         this.PIPELINE_UPDATE_ROW_STATUS({ _id: updated._id, status: 'RUN' })
       } else {
