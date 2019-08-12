@@ -7,6 +7,7 @@
       <om-data-list module="pipelines" :om-filter="pipelineFilter">
         <template v-slot:actions>
           <q-btn label="run pipeline" @click="onRunPipelineClick"/>
+          <pipelines-median class="q-ml-md"/>
         </template>
       </om-data-list>
       <om-data-list module="pipelineTasks" :om-filter="pipelineTasksFilter"></om-data-list>
@@ -20,6 +21,7 @@
 import { mapGetters, mapActions } from 'vuex'
 import OmDataList from '../components/ui/OmDataList'
 import OmRunnerLog from '../components/OmRunnerLog'
+import PipelinesMedian from '../components/PipelinesMedian'
 
 const userFilter = (user) => {
   if (user) {
@@ -40,7 +42,7 @@ const pipelineFilter = (pipeline = null) => {
 
 export default {
   name: 'DashboardPage',
-  components: { OmRunnerLog, OmDataList },
+  components: { PipelinesMedian, OmRunnerLog, OmDataList },
   data () {
     return {
       pipelineFilter: null,

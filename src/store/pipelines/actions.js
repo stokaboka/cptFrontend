@@ -37,6 +37,21 @@ export const aggregate = ({ state, commit }, params) => {
   })
 }
 
+export const median = ({ state, commit }, params) => {
+  const { keys, url } = state
+  const urlAggregate = 'median'
+  const mutation = null
+  return get({
+    store: {
+      commit
+    },
+    params,
+    keys,
+    url: `${url}/${urlAggregate}`,
+    mutation
+  })
+}
+
 export const create = ({ state, commit }, params) => {
   const { url } = state
   const mutation = state.mutations.create

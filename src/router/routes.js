@@ -3,6 +3,14 @@ const routes = [
   {
     path: '/',
     component: () => import('layouts/MyLayout.vue'),
+    beforeEnter (to, from, next) {
+      if (!to.name || to.path === '/') {
+        const name = 'dashboard'
+        next({ name })
+      } else {
+        next()
+      }
+    },
     children: [
       { path: '', component: () => import('pages/Index.vue') },
       { path: 'dashboard', name: 'dashboard', component: () => import('pages/DashboardPage.vue') },
