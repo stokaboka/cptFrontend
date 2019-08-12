@@ -2,12 +2,12 @@
     <div class="row q-gutter-md items-center">
       <span>Pipelines Median:</span>
       <strong>{{medianValue}}</strong>
-      <q-btn label="refresh median" @click="onRefreshMedianClick"/>
+      <q-btn label="refresh median" @click="refreshMedian"/>
     </div>
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 export default {
   name: 'PipelinesMedian',
   data () {
@@ -21,14 +21,25 @@ export default {
   computed: {
     medianValue () {
       return (this.medianValueArr && this.medianValueArr.length === 1) ? this.medianValueArr[0].median : 0
-    }
+    },
+    ...mapGetters('users', { user: 'row' })
   },
   methods: {
-    onRefreshMedianClick () {
+    refreshMedian () {
       this.getMedian()
     },
+
+    getMedianFilter (user) {
+      if (user) {
+        const { _id: userId } = user
+        return { userId }
+      }
+      return null
+    },
+
     async getMedian () {
-      this.medianValueArr = await this.median()
+      const filter = this.getMedianFilter(this.user)
+      this.medianValueArr = await this.median(filter)
     },
     ...mapActions('pipelines', ['median'])
   }

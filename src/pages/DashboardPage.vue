@@ -7,7 +7,7 @@
       <om-data-list module="pipelines" :om-filter="pipelineFilter">
         <template v-slot:actions>
           <q-btn label="run pipeline" @click="onRunPipelineClick"/>
-          <pipelines-median class="q-ml-md"/>
+          <pipelines-median ref="median" class="q-ml-md"/>
         </template>
       </om-data-list>
       <om-data-list module="pipelineTasks" :om-filter="pipelineTasksFilter"></om-data-list>
@@ -49,12 +49,16 @@ export default {
       pipelineTasksFilter: null
     }
   },
+
   computed: {
     ...mapGetters('users', { user: 'row' }),
     ...mapGetters('tasks', { task: 'row' }),
     ...mapGetters('pipelines', { pipeline: 'row' })
   },
   methods: {
+    refreshMedian () {
+      this.$refs.median.refreshMedian()
+    },
     async onRunPipelineClick () {
       if (this.pipeline) {
         const response = await this.runPipeline({ ...this.pipeline })
@@ -73,6 +77,7 @@ export default {
     user (val) {
       this.pipelineFilter = userFilter(val)
       this.pipelineTasksFilter = pipelineFilter()
+      this.refreshMedian()
     },
     pipeline (val) {
       this.pipelineTasksFilter = pipelineFilter(val)

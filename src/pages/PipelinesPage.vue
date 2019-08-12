@@ -3,7 +3,7 @@
     <om-data-list module="pipelines">
       <template v-slot:actions>
         <q-btn label="run pipeline" @click="onRunPipelineClick"/>
-        <pipelines-median class="q-ml-md"/>
+        <pipelines-median ref="median" class="q-ml-md"/>
       </template>
     </om-data-list>
     <om-data-list module="pipelineTasks" :om-filter="pipelineTasksFilter"></om-data-list>
@@ -11,12 +11,16 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters, mapMutations, mapActions } from 'vuex'
 import OmDataList from '../components/ui/OmDataList'
 import PipelinesMedian from '../components/PipelinesMedian'
 export default {
   components: { PipelinesMedian, OmDataList },
   name: 'PipelinesPage',
+  mounted () {
+    this.setUser(null)
+    this.$refs.median.refreshMedian()
+  },
   computed: {
     pipelineTasksFilter () {
       if (this.pipeline) {
@@ -40,6 +44,7 @@ export default {
         })
       }
     },
+    ...mapMutations('users', { setUser: 'SET_ROW' }),
     ...mapActions('pipelines', { runPipeline: 'run' })
   }
 }
